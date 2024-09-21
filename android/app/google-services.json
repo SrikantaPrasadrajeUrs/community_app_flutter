@@ -22,6 +22,14 @@
           }
         },
         {
+          "client_id": "726103102247-spv7ikn18lbvlfk11lmm854a452df2cr.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.example.ecommerse_website",
+            "certificate_hash": "bac5d2e3e2b67c2663275d4544f5bc0fc259084e"
+          }
+        },
+        {
           "client_id": "726103102247-7i8e9u0sakjtucljf5in1bv0tcsjlvlk.apps.googleusercontent.com",
           "client_type": 3
         }

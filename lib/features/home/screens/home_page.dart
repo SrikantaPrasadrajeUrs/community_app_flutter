@@ -1,4 +1,6 @@
 import 'package:ecommerse_website/features/auth/controller/auth_controller.dart';
+import 'package:ecommerse_website/features/auth/screens/center_loader.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import '../drawer/community_list_drawer.dart';
@@ -9,7 +11,7 @@ class HomePage extends ConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final user = ref.watch(userProvider);
-    return Scaffold(
+    return user==null?const Scaffold(body: CenterLoader()):Scaffold(
       drawer: const CommunityListDrawer(),
       appBar: AppBar(
         actions: [
@@ -20,7 +22,7 @@ class HomePage extends ConsumerWidget {
           IconButton(
             onPressed: () {},
             icon: CircleAvatar(
-              backgroundImage: NetworkImage(user!.profilePic.toString()),
+              backgroundImage: NetworkImage(user.profilePic.toString()),
             ),
           )
         ],
@@ -35,7 +37,7 @@ class HomePage extends ConsumerWidget {
         title: const Text("Home"),
       ),
       body: Center(
-        child: Text(user?.name ?? ''),
+        child: Text(user.name ?? ''),
       ),
     );
   }

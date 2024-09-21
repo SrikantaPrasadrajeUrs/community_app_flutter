@@ -11,13 +11,12 @@ final loggedOutRoutes = GoRouter(routes: [
       path: '/',
         builder:(context,state)=> const LoginScreen(),)
 ]);
-final loggedInRoutes = GoRouter(routes: [
-  GoRoute(
-    path: '/',
-    builder:(context,state)=> const LoginScreen(),),
-  GoRoute(
-    path: '/home',
-    builder:(context,state)=> const HomePage(),),
+final loggedInRoutes = GoRouter(
+initialLocation: "/home",
+    routes: [
+      GoRoute(
+        path: '/home',
+        builder:(context,state)=> const HomePage(),),
   GoRoute(
     path: '/create-community',
     builder:(context,state)=> const CreateCommunity(),),

@@ -22,7 +22,6 @@ class CommunityListDrawer extends ConsumerWidget {
               title: const Text("Create Collection"),
             ),
             communities.when(data: (communities) {
-              print('$communities <- communities');
               return Expanded(
                   child: ListView.builder(
                       itemCount: communities.length,

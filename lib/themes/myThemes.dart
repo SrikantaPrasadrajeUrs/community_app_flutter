@@ -22,8 +22,7 @@ class MyTheme{
     drawerTheme: const DrawerThemeData(
       backgroundColor: drawerColor,
     ),
-    primaryColor: redColor,
-    backgroundColor: drawerColor, // will be used as alternative background color
+    primaryColor: redColor, // will be used as alternative background color
   );
 
   static var lightModeAppTheme = ThemeData.light().copyWith(
@@ -40,6 +39,5 @@ class MyTheme{
       backgroundColor: whiteColor,
     ),
     primaryColor: redColor,
-    backgroundColor: whiteColor,
   );
 }

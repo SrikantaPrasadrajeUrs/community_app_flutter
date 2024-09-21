@@ -9,7 +9,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
 import 'firebase_options.dart';
-import 'package:routemaster/routemaster.dart';
 import 'model/user_model.dart';
 
 Future<void> main() async {
@@ -31,21 +30,27 @@ class _MyAppState extends ConsumerState<MyApp> {
   UserModel? userModel;
 
   void getData(WidgetRef ref, User data) async {
+    print("getData");
     userModel = await ref
         .watch(authControllerProvider.notifier)
         .getUserData(data.uid)
         .first;
-    ref.watch(userProvider.notifier).update((state) => userModel);
+    print(userModel);
+    ref.read(userProvider.notifier).update((state) => userModel);
   }
-
+GoRouter getRoute(UserModel? user)=>user==null?loggedOutRoutes:loggedInRoutes;
   @override
   Widget build(BuildContext context) {
     return ref.watch(authStateChangeProvider).when(
-        data: (data) => MaterialApp.router(
-              debugShowCheckedModeBanner: false,
-              theme: MyTheme.darkModeAppTheme,
-              routerConfig:
-                  data != null ? loggedInRoutes : loggedOutRoutes,),
+        data: (data) {
+          print("data $data");
+          if(data!=null) getData(ref, data);
+          return MaterialApp.router(
+            debugShowCheckedModeBanner: false,
+            theme: MyTheme.darkModeAppTheme,
+            routerConfig: getRoute(userModel),
+          );
+        },
         error: (error, e) => MaterialApp(home: ErrorText(error: e.toString())),
         loading: () => const CenterLoader()
     );

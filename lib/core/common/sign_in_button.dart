@@ -11,8 +11,7 @@ class SignInBtn extends ConsumerWidget {
   const SignInBtn({this.isFromLogin=true,super.key});
  
   void signInWithGoogle(WidgetRef ref,BuildContext context){
-    ref.read(authControllerProvider.notifier).signInWithGoogle(context,isFromLogin);
-    context.push("/home");
+   ref.watch(authControllerProvider.notifier).signInWithGoogle(context,isFromLogin);
   }
 
   @override

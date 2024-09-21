@@ -44,10 +44,10 @@ class CommunityController extends StateNotifier<bool> {
         id: name);
     final res = await _communityRepository.createCommunity(community);
     res.fold(
-        (failure) => {state = false, showSnakBar(context, failure.message)},
+        (failure) => {state = false, showSnackBar(context, failure.message)},
         (userModel) {
       state = true;
-      showSnakBar(context, "${community.name} community created");
+      showSnackBar(context, "${community.name} community created");
       context.pop();
     });
   }

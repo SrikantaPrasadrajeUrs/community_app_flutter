@@ -2,6 +2,12 @@
 <!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
 <plist version="1.0">
 <dict>
+	<key>CLIENT_ID</key>
+	<string>726103102247-imismn0i0ulvrrplpamaj4fo9dbc11q2.apps.googleusercontent.com</string>
+	<key>REVERSED_CLIENT_ID</key>
+	<string>com.googleusercontent.apps.726103102247-imismn0i0ulvrrplpamaj4fo9dbc11q2</string>
+	<key>ANDROID_CLIENT_ID</key>
+	<string>726103102247-dq26da309froj0kj1q4fjpsbtmnmms5p.apps.googleusercontent.com</string>
 	<key>API_KEY</key>
 	<string>AIzaSyABe83pHEX7B-9-rZLnOhe3gfz0ZWGc1gk</string>
 	<key>GCM_SENDER_ID</key>
@@ -9,7 +15,7 @@
 	<key>PLIST_VERSION</key>
 	<string>1</string>
 	<key>BUNDLE_ID</key>
-	<string>com.example.ecommerseWebsite.RunnerTests</string>
+	<string>com.example.ecommerseWebsite</string>
 	<key>PROJECT_ID</key>
 	<string>reddit-bae37</string>
 	<key>STORAGE_BUCKET</key>
@@ -25,6 +31,6 @@
 	<key>IS_SIGNIN_ENABLED</key>
 	<true></true>
 	<key>GOOGLE_APP_ID</key>
-	<string>1:726103102247:ios:17dbed4a14b3112d51cf02</string>
+	<string>1:726103102247:ios:31d29ac21681b0fb51cf02</string>
 </dict>
 </plist>

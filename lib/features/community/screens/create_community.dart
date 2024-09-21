@@ -24,7 +24,7 @@ class _CreateCommunityState extends ConsumerState<CreateCommunity> {
   void createCommunity() {
     if (textEditingController.text.isEmpty ||
         textEditingController.text == ' ') {
-      showSnakBar(context, textEditingController.text.trim());
+      showSnackBar(context, textEditingController.text.trim());
     } else {
       ref
           .watch(communityControllerProvider.notifier)

@@ -13,7 +13,7 @@ final authControllerProvider = StateNotifierProvider<AuthController, bool>(
   (ref) => AuthController(
       authRepository: ref.watch(authRepositoryProvider), ref: ref),
 );
-// a provider for keeping watch on authcontroller state
+// a provider for keeping watch on authController state
 final authStateChangeProvider = StreamProvider((ref) {
   final authController = ref.watch(authControllerProvider.notifier);
   return authController.authStateChange;
@@ -36,19 +36,16 @@ class AuthController extends StateNotifier<bool> {
 
   void signInWithGoogle(BuildContext context, bool isFromLogin) async {
     state = false;
-    final userModelOrFailure =
-        await _authRepository.signInWithGoogle(isFromLogin);
+    final userModelOrFailure = await _authRepository.signInWithGoogle(isFromLogin);
     userModelOrFailure.fold((failure) {
       // print("failure");
       state = false;
-      showSnakBar(context, failure.message);
+      showSnackBar(context, failure.message);
     }, (userModel) {
-      // print("success");
       state = true;
-      ref.read(userProvider.notifier).update(
-            (state) => userModel,
-          );
-      showSnakBar(context, "${userModel.name} logged in");
+      ref.read(userProvider.notifier).update((state) => userModel);
+      showSnackBar(context, "${userModel.name} logged in");
+      // context.go('/home');
     });
     // l => Failure R=> Model
   }

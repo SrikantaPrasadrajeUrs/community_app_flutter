@@ -1,7 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:routemaster/routemaster.dart';
-void showSnakBar(BuildContext context,String text){
+void showSnackBar(BuildContext context,String text){
   ScaffoldMessenger.of(context)..hideCurrentSnackBar()..showSnackBar(SnackBar(content: Text(text,)));
 }
 // SizedBox reusableSizedBox(BuildContext context,bool height,bool width,double heightRatio,double widthRatio,Widget? child){

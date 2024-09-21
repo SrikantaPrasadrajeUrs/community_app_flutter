@@ -38,8 +38,10 @@ class AuthRepository {
 
   FutureEither<UserModel> signInWithGoogle(bool isFromLogin) async {
     try {
+
       // handles sign in with google account
       final GoogleSignInAccount? googleUser = await _googleSignIn.signIn();
+      print(googleUser?.displayName);
       //generates access token and id wrt to account
       final googleAuth = (await googleUser?.authentication);
       // credential contains user info
@@ -47,6 +49,7 @@ class AuthRepository {
         accessToken: googleAuth?.accessToken,
         idToken: googleAuth?.idToken,
       );
+
       UserCredential userCredential =
           await _auth.signInWithCredential(credential);
 
@@ -69,6 +72,7 @@ class AuthRepository {
       }
       return right(userModel);
     } on Exception catch (e) {
+      print(e);
       return left(Failure(e.toString()));
     }
   }
