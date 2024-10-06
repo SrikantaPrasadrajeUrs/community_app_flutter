@@ -1,8 +1,10 @@
+import 'dart:io';
+
+import 'package:ecommerse_website/core/providers/storage_repo_provider.dart';
 import 'package:ecommerse_website/features/auth/controller/auth_controller.dart';
 import 'package:ecommerse_website/model/community_model/community_model.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:go_router/go_router.dart';
 import '../../../core/constants/constants.dart';
 import '../../../core/utils.dart';
 import '../repository/community_repository.dart';
@@ -11,25 +13,33 @@ import '../repository/community_repository.dart';
 final communityControllerProvider =
     StateNotifierProvider<CommunityController, bool>((ref) =>
         CommunityController(
-            communityRepository: ref.watch(communityRepositoryProvider),
-            ref: ref));
+            communityRepository: ref.read(communityRepositoryProvider),
+            ref: ref,
+            storageRepo: ref.read(storageRepoProvider)));
 
 // user Community
 final userCommunityProvider = StreamProvider(
     (ref) => ref.read(communityControllerProvider.notifier).getCommunities());
 
 //community by name
-final getCommunityByName=StreamProvider.family(
-        (ref,String name) => ref.watch(communityControllerProvider.notifier).getCommunityByName(name));
+final getCommunityByName = StreamProvider.family((ref, String name) =>
+    ref.watch(communityControllerProvider.notifier).getCommunityByName(name));
 
+final communityStreamProvider = StreamProvider.family((ref,String query){
+ return ref.read(communityControllerProvider.notifier).getCommunity(query);
+});
 
 class CommunityController extends StateNotifier<bool> {
   final CommunityRepository _communityRepository;
+  final StorageRepo _storageRepo;
   final Ref _ref;
   CommunityController(
-      {required CommunityRepository communityRepository, required Ref ref})
+      {required CommunityRepository communityRepository,
+      required StorageRepo storageRepo,
+      required Ref ref})
       : _communityRepository = communityRepository,
         _ref = ref,
+        _storageRepo = storageRepo,
         super(false);
 
   void createCommunity(String name, BuildContext context) async {
@@ -48,7 +58,7 @@ class CommunityController extends StateNotifier<bool> {
         (userModel) {
       state = true;
       showSnackBar(context, "${community.name} community created");
-      context.pop();
+      Navigator.of(context).pop();
     });
   }
 
@@ -57,7 +67,42 @@ class CommunityController extends StateNotifier<bool> {
     final uid = _ref.read(userProvider)!.uid;
     return _communityRepository.getUserCommunities(uid);
   }
-  Stream<Community> getCommunityByName(String name){
+
+  Stream<Community> getCommunityByName(String name) {
     return _communityRepository.getCommunityByName(name);
+  }
+
+  void editCommunity(
+      {required Community community,
+      required File? bannerImg,
+      required File? profileImg,
+      required BuildContext context}) async {
+    try {
+      state = true;
+      if (bannerImg != null) {
+        final url = await  _storageRepo.storeFile(path: "communities/banner", name: community.name, file: bannerImg);
+        url.fold((e)=>showSnackBar(context, e.toString()), (url){
+         community = community.copyWith(banner: url);
+        });
+      }
+      if (profileImg != null) {
+        final url = await  _storageRepo.storeFile(path: "communities/profile", name: community.name, file: profileImg);
+        url.fold((e)=>showSnackBar(context, e.toString()), (url)=>community = community.copyWith(avatar: url));
+      }
+      final res = await _communityRepository.editCommunity(community);
+      res.fold((e)=>showSnackBar(context, e.toString()), (r){
+        showSnackBar(context, "Community updated!");
+        Navigator.of(context).pop();
+      });
+      state = false;
+    } catch (e) {
+      showSnackBar(context, e.toString());
+      Navigator.of(context).pop();
+      state = false;
+    }
+  }
+
+  Stream<List<Community>> getCommunity(String query){
+   return _communityRepository.getCommunity(query);
   }
 }

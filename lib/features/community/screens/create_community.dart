@@ -1,6 +1,5 @@
 import 'package:ecommerse_website/core/constants/constants.dart';
 import 'package:ecommerse_website/core/utils.dart';
-import 'package:ecommerse_website/features/auth/screens/center_loader.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import '../../../themes/my_text_themes.dart';
@@ -22,21 +21,17 @@ class _CreateCommunityState extends ConsumerState<CreateCommunity> {
   }
 
   void createCommunity() {
-    if (textEditingController.text.isEmpty ||
-        textEditingController.text == ' ') {
-      showSnackBar(context, textEditingController.text.trim());
+    if (textEditingController.text.trim().isEmpty) {
+      showSnackBar(context,"Please enter community name");
     } else {
-      ref
-          .watch(communityControllerProvider.notifier)
-          .createCommunity(textEditingController.text.trim(), context);
+      ref.read(communityControllerProvider.notifier).createCommunity(textEditingController.text.trim(), context);
     }
-    ref.watch(communityControllerProvider.notifier).getCommunities();
+    ref.read(communityControllerProvider.notifier).getCommunities();
   }
 
   @override
   Widget build(BuildContext context) {
-    bool isLoading=ref.watch(communityControllerProvider);
-    return isLoading? const CenterLoader():Scaffold(
+    return Scaffold(
       appBar: AppBar(
         title: const Text("Create Communities"),
       ),
@@ -51,8 +46,7 @@ class _CreateCommunityState extends ConsumerState<CreateCommunity> {
             TextField(
               controller: textEditingController,
               decoration: InputDecoration(
-                contentPadding:
-                    const EdgeInsets.symmetric(vertical: 5, horizontal: 10),
+                contentPadding: const EdgeInsets.symmetric(vertical: 5, horizontal: 10),
                 fillColor: Theme.of(context).canvasColor,
                 filled: true,
                 hintText: "r/Enter Community name",

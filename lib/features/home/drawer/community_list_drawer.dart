@@ -1,7 +1,8 @@
 import 'package:ecommerse_website/features/community/controller/community_controller.dart';
+import 'package:ecommerse_website/features/community/screens/community_screen.dart';
+import 'package:ecommerse_website/features/community/screens/create_community.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:go_router/go_router.dart';
 
 class CommunityListDrawer extends ConsumerWidget {
   const CommunityListDrawer({super.key});
@@ -51,10 +52,11 @@ class CommunityListDrawer extends ConsumerWidget {
   }
 
   void navigateToCommunityScreen(BuildContext context,String name){
-    context.push("/r/$name");
+    Navigator.push(context, MaterialPageRoute(builder:(context)=>CommunityScreen(name: name)));
   }
 
   void navigateToCreateCommunity(BuildContext context) {
-   context.push('/create-community');
+    Navigator.push(context, MaterialPageRoute(builder:(context)=>const CreateCommunity()));
   }
 }
+

@@ -1,5 +1,6 @@
 import 'package:ecommerse_website/features/auth/controller/auth_controller.dart';
 import 'package:ecommerse_website/features/auth/screens/center_loader.dart';
+import 'package:ecommerse_website/features/delegates/sreach_community_delegate.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
@@ -10,13 +11,15 @@ class HomePage extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final user = ref.watch(userProvider);
-    return user==null?const Scaffold(body: CenterLoader()):Scaffold(
+    final user = ref.watch(userProvider)!;
+    return Scaffold(
       drawer: const CommunityListDrawer(),
       appBar: AppBar(
         actions: [
           IconButton(
-            onPressed: () {},
+            onPressed: () {
+              showSearch(context: context, delegate: SearchCommunityDelegate(ref));
+            },
             icon: const Icon(Icons.search),
           ),
           IconButton(

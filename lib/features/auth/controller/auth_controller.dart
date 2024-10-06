@@ -1,4 +1,5 @@
 import 'package:ecommerse_website/core/utils.dart';
+import 'package:ecommerse_website/features/home/screens/home_page.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -38,14 +39,13 @@ class AuthController extends StateNotifier<bool> {
     state = false;
     final userModelOrFailure = await _authRepository.signInWithGoogle(isFromLogin);
     userModelOrFailure.fold((failure) {
-      // print("failure");
       state = false;
       showSnackBar(context, failure.message);
     }, (userModel) {
       state = true;
       ref.read(userProvider.notifier).update((state) => userModel);
       showSnackBar(context, "${userModel.name} logged in");
-      // context.go('/home');
+     Navigator.push(context,MaterialPageRoute(builder: (context)=> const HomePage()));
     });
     // l => Failure R=> Model
   }

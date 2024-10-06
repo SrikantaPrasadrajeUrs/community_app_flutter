@@ -1,3 +1,4 @@
+import 'package:file_picker/file_picker.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:routemaster/routemaster.dart';
@@ -41,3 +42,5 @@ Widget giveExpandedButton(BuildContext context,String text,String navigationPath
     ],
   );
 }
+
+Future<FilePickerResult?> pickImage()async=> await FilePicker.platform.pickFiles(type: FileType.any);
