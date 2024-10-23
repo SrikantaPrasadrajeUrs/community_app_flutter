@@ -11,8 +11,8 @@ class CommunityScreen extends ConsumerWidget {
   final String? name;
   const CommunityScreen({super.key, required this.name});
 
-  void navigateToModToolsScreen(BuildContext context){
-    Navigator.push(context, MaterialPageRoute(builder:(context)=>const ModToolScreen()));
+  void navigateToModToolsScreen(BuildContext context,String name){
+    Navigator.push(context, MaterialPageRoute(builder:(context)=>ModToolScreen(name:name)));
   }
 
   void navigateToEditCommunityScreen(BuildContext context,String communityName){
@@ -62,40 +62,19 @@ class CommunityScreen extends ConsumerWidget {
                             ),
                             Row(
                               children: [
-                                GestureDetector(
-                                  onTap: () {
-                                    navigateToEditCommunityScreen(context,community.name);
-                                  },
-                                  child:  Container(
-                                      padding: EdgeInsets.all(8),
-                                      decoration: BoxDecoration(
-                                          color: Colors.black,
-                                          boxShadow: [
-                                            BoxShadow(
-                                                offset: Offset(0, 0),
-                                                blurRadius: 6,
-                                                spreadRadius: 7,
-                                                color: Colors.white.withOpacity(.2)
-                                            )
-                                          ],
-                                          borderRadius: BorderRadius.circular(10),
-                                          border: Border.all(color: Colors.white)
-                                      ),
-                                      child: const Text('Edit',style: TextStyle(color: Colors.white,fontSize: 12),)),
-                                ),
                                 const SizedBox(width: 17),
                                 community.mods.contains(user.uid)
                                     ? GestureDetector(
                                   onTap: () {
-                                    navigateToModToolsScreen(context);
+                                    navigateToModToolsScreen(context,community.name);
                                   },
                                   child: Container(
-                                      padding: EdgeInsets.all(8),
+                                      padding: const EdgeInsets.all(8),
                                       decoration: BoxDecoration(
                                         color: Colors.black,
                                         boxShadow: [
                                           BoxShadow(
-                                            offset: Offset(0, 0),
+                                            offset: const Offset(0, 0),
                                             blurRadius: 6,
                                             spreadRadius: 7,
                                             color: Colors.white.withOpacity(.2)
@@ -106,16 +85,27 @@ class CommunityScreen extends ConsumerWidget {
                                       ),
                                       child: const Text('Mod tools',style: TextStyle(color: Colors.white,fontSize: 12),)),
                                 )
-                                    : OutlinedButton(
-                                  onPressed: () {},
-                                  style: ElevatedButton.styleFrom(
-                                      padding: const EdgeInsets.symmetric(
-                                          horizontal: 27),
-                                      shape: RoundedRectangleBorder(
-                                        borderRadius:
-                                        BorderRadius.circular(10),
-                                      )),
-                                  child: Text( community.members.contains(user.uid)? 'joined':'join'),
+                                    : GestureDetector(
+                                  onTap: () {
+                                    ref.read(communityControllerProvider.notifier).joinCommunity(community.name, user.uid,community.members,context);
+                                  },
+                                  child: Container(
+                                      margin: const EdgeInsets.only(right: 10),
+                                      padding: const EdgeInsets.all(8),
+                                      decoration: BoxDecoration(
+                                          color: Colors.black,
+                                          boxShadow: [
+                                            BoxShadow(
+                                                offset: const Offset(0, 0),
+                                                blurRadius: 6,
+                                                spreadRadius: 7,
+                                                color: Colors.white.withOpacity(.2)
+                                            )
+                                          ],
+                                          borderRadius: BorderRadius.circular(10),
+                                          border: Border.all(color: Colors.white)
+                                      ),
+                                      child: Text( community.members.contains(user.uid)? 'leave':'join')),
                                 )
                               ],
                             )

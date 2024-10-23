@@ -1,3 +1,5 @@
+import 'dart:developer';
+
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:ecommerse_website/core/constants/firebase_constants.dart';
 import 'package:ecommerse_website/core/failure.dart';
@@ -30,7 +32,6 @@ class CommunityRepository {
     }
   }
   Stream<List<Community>> getUserCommunities(String uid){
-    final stream=_community.where('members',arrayContains: uid).snapshots();
    return _community.where('members',arrayContains: uid).snapshots().map((event){
     List<Community> communities=[];
     for( var doc in event.docs){
@@ -56,11 +57,11 @@ class CommunityRepository {
       return left(Failure(e.toString()));
     }
   }
-  Stream<List<Community>> getCommunity(String query){
+  Stream<List<Community>> getCommunitiesByName(String query){
    return _community.where(
      'name',
-     isGreaterThanOrEqualTo: query.isEmpty?0:query,
-     isLessThan:query.isEmpty? null: query.substring(0,query.length-1)+String.fromCharCode(query.codeUnitAt(query.length-1)+1)
+     // isGreaterThanOrEqualTo: query.isEmpty?0:query,
+     // isLessThan:query.isEmpty? null: query.substring(0,query.length-1)+String.fromCharCode(query.codeUnitAt(query.length-1)+1)
    ).snapshots().map((event){
      List<Community> communities = [];
      for(var community in event.docs){
@@ -68,6 +69,28 @@ class CommunityRepository {
      }
      return communities;
    });
+  }
+
+  FutureVoid joinCommunity(String communityName,String userId)async{
+    try{
+      return right(_community.doc(communityName).update({
+        'members': FieldValue.arrayUnion([userId])
+      }));
+    }catch(e,st){
+      log("While joining community: ",error: e,stackTrace: st);
+      return left(Failure(e.toString()));
+    }
+  }
+
+  FutureVoid leaveCommunity(String communityName,String userId)async{
+    try{
+      return right(_community.doc(communityName).update({
+        'members': FieldValue.arrayRemove([userId])
+      }));
+    }catch(e,st){
+      log("While joining community: ",error: e,stackTrace: st);
+      return left(Failure(e.toString()));
+    }
   }
 }
 

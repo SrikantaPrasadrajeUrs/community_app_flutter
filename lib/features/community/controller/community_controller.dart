@@ -1,10 +1,13 @@
 import 'dart:io';
 
+import 'package:ecommerse_website/core/failure.dart';
 import 'package:ecommerse_website/core/providers/storage_repo_provider.dart';
+import 'package:ecommerse_website/core/type_defs.dart';
 import 'package:ecommerse_website/features/auth/controller/auth_controller.dart';
 import 'package:ecommerse_website/model/community_model/community_model.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:fpdart/fpdart.dart';
 import '../../../core/constants/constants.dart';
 import '../../../core/utils.dart';
 import '../repository/community_repository.dart';
@@ -56,7 +59,7 @@ class CommunityController extends StateNotifier<bool> {
     res.fold(
         (failure) => {state = false, showSnackBar(context, failure.message)},
         (userModel) {
-      state = true;
+      state = false;
       showSnackBar(context, "${community.name} community created");
       Navigator.of(context).pop();
     });
@@ -103,6 +106,32 @@ class CommunityController extends StateNotifier<bool> {
   }
 
   Stream<List<Community>> getCommunity(String query){
-   return _communityRepository.getCommunity(query);
+    return _communityRepository.getCommunitiesByName(query).map((communities){
+    return communities.where((community)=>community.name.toLowerCase().contains(query.toLowerCase())).toList();
+    });
   }
+
+  Future<void> joinCommunity(String communityName, String userId, List<String> members, BuildContext context) async {
+    if (communityName.isEmpty || userId.isEmpty) {
+      showSnackBar(context, "Invalid community or user.");
+      return;
+    }
+
+    bool isMember = members.contains(userId);
+
+    var response = isMember
+        ? await _communityRepository.leaveCommunity(communityName, userId)
+        : await _communityRepository.joinCommunity(communityName, userId);
+
+    handleCommunityResponse(response, context, isMember ? "Community left" : "Community joined");
+  }
+
+  void handleCommunityResponse(Either<Failure,void> response, BuildContext context, String successMessage) {
+    response.fold(
+          (error) => showSnackBar(context, error.message),
+          (data) => showSnackBar(context, successMessage),
+    );
+  }
+
+
 }

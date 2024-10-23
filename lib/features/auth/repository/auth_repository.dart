@@ -57,10 +57,10 @@ class AuthRepository {
       late UserModel userModel;
       if (userCredential.additionalUserInfo!.isNewUser) {
         userModel = UserModel(
-          name: userCredential.user!.displayName ?? '',
-          profilePic: userCredential.user!.photoURL ?? '',
+          name: userCredential.user?.displayName ?? '',
+          profilePic: userCredential.user?.photoURL ?? '',
           banner: Constants.bannerDefault,
-          uid: userCredential.user!.uid ?? '',
+          uid: userCredential.user?.uid??"",
           isAuthenticated: true,
           awards: [],
           karma: 0,
@@ -85,5 +85,10 @@ class AuthRepository {
         .doc(uid)
         .snapshots()
         .map((data) => UserModel.fromMap(data.data() as Map<String, dynamic>));
+  }
+
+  Future<void> logout()async{
+    await _googleSignIn.signOut();
+    await _auth.signOut();
   }
 }

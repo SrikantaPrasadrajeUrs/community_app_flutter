@@ -1,7 +1,6 @@
 import 'package:ecommerse_website/features/auth/controller/auth_controller.dart';
-import 'package:ecommerse_website/features/auth/screens/center_loader.dart';
 import 'package:ecommerse_website/features/delegates/sreach_community_delegate.dart';
-import 'package:firebase_auth/firebase_auth.dart';
+import 'package:ecommerse_website/features/home/drawer/profile_drawer.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import '../drawer/community_list_drawer.dart';
@@ -13,6 +12,7 @@ class HomePage extends ConsumerWidget {
   Widget build(BuildContext context, WidgetRef ref) {
     final user = ref.watch(userProvider)!;
     return Scaffold(
+      endDrawer: const ProfileDrawer(),
       drawer: const CommunityListDrawer(),
       appBar: AppBar(
         actions: [
@@ -22,25 +22,27 @@ class HomePage extends ConsumerWidget {
             },
             icon: const Icon(Icons.search),
           ),
-          IconButton(
-            onPressed: () {},
-            icon: CircleAvatar(
-              backgroundImage: NetworkImage(user.profilePic.toString()),
-            ),
+          Builder(
+            builder: (context) {
+              return IconButton(
+                onPressed: () => displayEndDrawer(context),
+                icon: CircleAvatar(
+                  backgroundImage: NetworkImage(user.profilePic.toString()),
+                ),
+              );
+            }
           )
         ],
         leading: Builder(builder: (context) {
-          // provide new context
           return IconButton(
-            onPressed: () =>
-              displayDrawer(context),
+            onPressed: () => displayDrawer(context),
             icon: const Icon(Icons.menu),
           );
         }),
         title: const Text("Home"),
       ),
       body: Center(
-        child: Text(user.name ?? ''),
+        child: Text(user.name),
       ),
     );
   }
@@ -48,4 +50,6 @@ class HomePage extends ConsumerWidget {
   void displayDrawer(BuildContext context) {
     Scaffold.of(context).openDrawer();
   }
+
+  void displayEndDrawer(BuildContext context)=> Scaffold.of(context).openEndDrawer();
 }
