@@ -24,7 +24,7 @@ class ModToolScreen extends StatelessWidget {
             leading:const Icon(Icons.edit),
             title:const Text("Edit Community"),
             onTap: (){
-              Navigator.push(context, MaterialPageRoute(builder:(context)=> EditCommunityScreen(name: name??"")));
+              Navigator.push(context, MaterialPageRoute(builder:(context)=> EditCommunityScreen(name: name)));
             },
           ),
         ],

@@ -1,8 +1,6 @@
 import 'dart:io';
-
 import 'package:ecommerse_website/core/failure.dart';
 import 'package:ecommerse_website/core/providers/storage_repo_provider.dart';
-import 'package:ecommerse_website/core/type_defs.dart';
 import 'package:ecommerse_website/features/auth/controller/auth_controller.dart';
 import 'package:ecommerse_website/model/community_model/community_model.dart';
 import 'package:flutter/cupertino.dart';
