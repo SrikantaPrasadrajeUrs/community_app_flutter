@@ -1,5 +1,4 @@
 import 'dart:developer';
-
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:ecommerse_website/core/constants/firebase_constants.dart';
 import 'package:ecommerse_website/core/failure.dart';
@@ -10,13 +9,13 @@ import '../../../core/type_defs.dart';
 import '../../../model/community_model/community_model.dart';
 
 final communityRepositoryProvider = Provider((ref) =>
-    CommunityRepository(firebaseFirestore: ref.watch(fireStoreProvider))
+    CommunityRepository(firebaseFireStore: ref.watch(fireStoreProvider))
 );
 
 class CommunityRepository {
-  final FirebaseFirestore _firebaseFirestore;
-  CommunityRepository({required FirebaseFirestore firebaseFirestore})
-      : _firebaseFirestore = firebaseFirestore;
+  final FirebaseFirestore _firebaseFireStore;
+  CommunityRepository({required FirebaseFirestore firebaseFireStore})
+      : _firebaseFireStore = firebaseFireStore;
 
   FutureVoid createCommunity(Community community) async {
     try {
@@ -41,7 +40,7 @@ class CommunityRepository {
     });
   }
 
-  CollectionReference get _community => _firebaseFirestore.collection(FirebaseConstants.communitiesCollection);
+  CollectionReference get _community => _firebaseFireStore.collection(FirebaseConstants.communitiesCollection);
 
   Stream<Community> getCommunityByName(String name){
     return _community.doc(name).snapshots().map((event)=>Community.fromJson(event.data() as Map<String,dynamic>));
@@ -58,11 +57,7 @@ class CommunityRepository {
     }
   }
   Stream<List<Community>> getCommunitiesByName(String query){
-   return _community.where(
-     'name',
-     // isGreaterThanOrEqualTo: query.isEmpty?0:query,
-     // isLessThan:query.isEmpty? null: query.substring(0,query.length-1)+String.fromCharCode(query.codeUnitAt(query.length-1)+1)
-   ).snapshots().map((event){
+   return _community.where('name').snapshots().map((event){
      List<Community> communities = [];
      for(var community in event.docs){
        communities.add(Community.fromJson(community.data() as Map<String,dynamic>));
@@ -71,24 +66,21 @@ class CommunityRepository {
    });
   }
 
-  FutureVoid joinCommunity(String communityName,String userId)async{
+  FutureVoid updateCommunityMembership(String communityName,String userId,{bool join = true})async{
     try{
       return right(_community.doc(communityName).update({
-        'members': FieldValue.arrayUnion([userId])
+        "members":join?FieldValue.arrayUnion([userId]):FieldValue.arrayRemove([userId])
       }));
-    }catch(e,st){
-      log("While joining community: ",error: e,stackTrace: st);
+    } catch(e,stackTrace){
+      log("while updating community membership",stackTrace: stackTrace);
       return left(Failure(e.toString()));
     }
   }
 
-  FutureVoid leaveCommunity(String communityName,String userId)async{
+  FutureVoid deleteCommunity(String communityName)async{
     try{
-      return right(_community.doc(communityName).update({
-        'members': FieldValue.arrayRemove([userId])
-      }));
-    }catch(e,st){
-      log("While joining community: ",error: e,stackTrace: st);
+      return right(_community.doc(communityName).delete());
+    }catch(e,stackTrace){
       return left(Failure(e.toString()));
     }
   }

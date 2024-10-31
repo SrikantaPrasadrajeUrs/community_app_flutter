@@ -116,11 +116,7 @@ class CommunityController extends StateNotifier<bool> {
     }
 
     bool isMember = members.contains(userId);
-
-    var response = isMember
-        ? await _communityRepository.leaveCommunity(communityName, userId)
-        : await _communityRepository.joinCommunity(communityName, userId);
-
+    var response = await _communityRepository.updateCommunityMembership(communityName, userId,join: !isMember);
     handleCommunityResponse(response, context, isMember ? "Community left" : "Community joined");
   }
 
@@ -131,5 +127,9 @@ class CommunityController extends StateNotifier<bool> {
     );
   }
 
+  void deleteCommunity(BuildContext context,{required String communityName})async{
+   var response =  await _communityRepository.deleteCommunity(communityName);
+   handleCommunityResponse(response, context, "Deleted Successfully");
+  }
 
 }

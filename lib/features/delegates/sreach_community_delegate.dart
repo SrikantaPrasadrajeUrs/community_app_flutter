@@ -20,7 +20,7 @@ class SearchCommunityDelegate extends SearchDelegate{
 
   @override
   Widget buildResults(BuildContext context) {
-    return ListTile();
+    return const ListTile();
   }
 
   @override

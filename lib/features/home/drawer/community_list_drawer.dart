@@ -36,6 +36,9 @@ class CommunityListDrawer extends ConsumerWidget {
                                 NetworkImage(communities[index].avatar),
                           ),
                           title: Text('r/${communities[index].name}'),
+                          trailing: IconButton(onPressed: ()async{
+                            ref.read(communityControllerProvider.notifier).deleteCommunity(context, communityName: communities[index].name);
+                          }, icon: const Icon(Icons.delete_outline,color: Colors.orange,)),
                         );
                       }));
             }, error: (object, stackTrace) {

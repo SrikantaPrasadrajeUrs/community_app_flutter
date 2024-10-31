@@ -89,6 +89,6 @@ class _EditCommunityScreenState extends ConsumerState<EditCommunityScreen> {
                   ),
                 ),
             error: (e, st) => Scaffold(body: Center(child: Text(e.toString()))),
-            loading: () => const Scaffold(body: const CenterLoader()));
+            loading: () => const Scaffold(body: CenterLoader()));
   }
 }
