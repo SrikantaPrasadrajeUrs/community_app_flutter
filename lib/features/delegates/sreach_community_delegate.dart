@@ -41,7 +41,7 @@ class SearchCommunityDelegate extends SearchDelegate{
             },
           );
         }, 
-        error: (e,st)=>ErrorText(message:e.toString()), 
+        error: (e,st)=>ErrorText(message:"${e.toString()} $st"),
         loading:()=>const CenterLoader());
   }
 

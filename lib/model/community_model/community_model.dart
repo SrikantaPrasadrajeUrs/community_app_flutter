@@ -7,6 +7,7 @@ part 'community_model.g.dart';
 class Community with _$Community{
 
   factory Community({
+    required String? ownerId,
    required String name,
     required String banner,
     required String avatar,

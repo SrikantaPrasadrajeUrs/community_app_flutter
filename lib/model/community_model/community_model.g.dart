@@ -8,6 +8,7 @@ part of 'community_model.dart';
 
 _$CommunityImpl _$$CommunityImplFromJson(Map<String, dynamic> json) =>
     _$CommunityImpl(
+      ownerId: json['ownerId'] as String?,
       name: json['name'] as String,
       banner: json['banner'] as String,
       avatar: json['avatar'] as String,
@@ -19,6 +20,7 @@ _$CommunityImpl _$$CommunityImplFromJson(Map<String, dynamic> json) =>
 
 Map<String, dynamic> _$$CommunityImplToJson(_$CommunityImpl instance) =>
     <String, dynamic>{
+      'ownerId': instance.ownerId,
       'name': instance.name,
       'banner': instance.banner,
       'avatar': instance.avatar,

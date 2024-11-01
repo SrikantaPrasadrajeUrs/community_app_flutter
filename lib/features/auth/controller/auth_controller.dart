@@ -13,6 +13,7 @@ final authControllerProvider = StateNotifierProvider<AuthController, bool>(
   (ref) => AuthController(
       authRepository: ref.watch(authRepositoryProvider), ref: ref),
 );
+
 // a provider for keeping watch on authController state
 final authStateChangeProvider = StreamProvider((ref) {
   final authController = ref.watch(authControllerProvider.notifier);

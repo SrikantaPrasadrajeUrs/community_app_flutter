@@ -20,6 +20,7 @@ Community _$CommunityFromJson(Map<String, dynamic> json) {
 
 /// @nodoc
 mixin _$Community {
+  String? get ownerId => throw _privateConstructorUsedError;
   String get name => throw _privateConstructorUsedError;
   String get banner => throw _privateConstructorUsedError;
   String get avatar => throw _privateConstructorUsedError;
@@ -27,8 +28,12 @@ mixin _$Community {
   List<String> get mods => throw _privateConstructorUsedError;
   String get id => throw _privateConstructorUsedError;
 
+  /// Serializes this Community to a JSON map.
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
-  @JsonKey(ignore: true)
+
+  /// Create a copy of Community
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
   $CommunityCopyWith<Community> get copyWith =>
       throw _privateConstructorUsedError;
 }
@@ -39,7 +44,8 @@ abstract class $CommunityCopyWith<$Res> {
       _$CommunityCopyWithImpl<$Res, Community>;
   @useResult
   $Res call(
-      {String name,
+      {String? ownerId,
+      String name,
       String banner,
       String avatar,
       List<String> members,
@@ -57,9 +63,12 @@ class _$CommunityCopyWithImpl<$Res, $Val extends Community>
   // ignore: unused_field
   final $Res Function($Val) _then;
 
+  /// Create a copy of Community
+  /// with the given fields replaced by the non-null parameter values.
   @pragma('vm:prefer-inline')
   @override
   $Res call({
+    Object? ownerId = freezed,
     Object? name = null,
     Object? banner = null,
     Object? avatar = null,
@@ -68,6 +77,10 @@ class _$CommunityCopyWithImpl<$Res, $Val extends Community>
     Object? id = null,
   }) {
     return _then(_value.copyWith(
+      ownerId: freezed == ownerId
+          ? _value.ownerId
+          : ownerId // ignore: cast_nullable_to_non_nullable
+              as String?,
       name: null == name
           ? _value.name
           : name // ignore: cast_nullable_to_non_nullable
@@ -105,7 +118,8 @@ abstract class _$$CommunityImplCopyWith<$Res>
   @override
   @useResult
   $Res call(
-      {String name,
+      {String? ownerId,
+      String name,
       String banner,
       String avatar,
       List<String> members,
@@ -121,9 +135,12 @@ class __$$CommunityImplCopyWithImpl<$Res>
       _$CommunityImpl _value, $Res Function(_$CommunityImpl) _then)
       : super(_value, _then);
 
+  /// Create a copy of Community
+  /// with the given fields replaced by the non-null parameter values.
   @pragma('vm:prefer-inline')
   @override
   $Res call({
+    Object? ownerId = freezed,
     Object? name = null,
     Object? banner = null,
     Object? avatar = null,
@@ -132,6 +149,10 @@ class __$$CommunityImplCopyWithImpl<$Res>
     Object? id = null,
   }) {
     return _then(_$CommunityImpl(
+      ownerId: freezed == ownerId
+          ? _value.ownerId
+          : ownerId // ignore: cast_nullable_to_non_nullable
+              as String?,
       name: null == name
           ? _value.name
           : name // ignore: cast_nullable_to_non_nullable
@@ -164,7 +185,8 @@ class __$$CommunityImplCopyWithImpl<$Res>
 @JsonSerializable()
 class _$CommunityImpl implements _Community {
   _$CommunityImpl(
-      {required this.name,
+      {required this.ownerId,
+      required this.name,
       required this.banner,
       required this.avatar,
       required final List<String> members,
@@ -176,6 +198,8 @@ class _$CommunityImpl implements _Community {
   factory _$CommunityImpl.fromJson(Map<String, dynamic> json) =>
       _$$CommunityImplFromJson(json);
 
+  @override
+  final String? ownerId;
   @override
   final String name;
   @override
@@ -203,7 +227,7 @@ class _$CommunityImpl implements _Community {
 
   @override
   String toString() {
-    return 'Community(name: $name, banner: $banner, avatar: $avatar, members: $members, mods: $mods, id: $id)';
+    return 'Community(ownerId: $ownerId, name: $name, banner: $banner, avatar: $avatar, members: $members, mods: $mods, id: $id)';
   }
 
   @override
@@ -211,6 +235,7 @@ class _$CommunityImpl implements _Community {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
             other is _$CommunityImpl &&
+            (identical(other.ownerId, ownerId) || other.ownerId == ownerId) &&
             (identical(other.name, name) || other.name == name) &&
             (identical(other.banner, banner) || other.banner == banner) &&
             (identical(other.avatar, avatar) || other.avatar == avatar) &&
@@ -219,10 +244,11 @@ class _$CommunityImpl implements _Community {
             (identical(other.id, id) || other.id == id));
   }
 
-  @JsonKey(ignore: true)
+  @JsonKey(includeFromJson: false, includeToJson: false)
   @override
   int get hashCode => Object.hash(
       runtimeType,
+      ownerId,
       name,
       banner,
       avatar,
@@ -230,7 +256,9 @@ class _$CommunityImpl implements _Community {
       const DeepCollectionEquality().hash(_mods),
       id);
 
-  @JsonKey(ignore: true)
+  /// Create a copy of Community
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
   @override
   @pragma('vm:prefer-inline')
   _$$CommunityImplCopyWith<_$CommunityImpl> get copyWith =>
@@ -246,7 +274,8 @@ class _$CommunityImpl implements _Community {
 
 abstract class _Community implements Community {
   factory _Community(
-      {required final String name,
+      {required final String? ownerId,
+      required final String name,
       required final String banner,
       required final String avatar,
       required final List<String> members,
@@ -256,6 +285,8 @@ abstract class _Community implements Community {
   factory _Community.fromJson(Map<String, dynamic> json) =
       _$CommunityImpl.fromJson;
 
+  @override
+  String? get ownerId;
   @override
   String get name;
   @override
@@ -268,8 +299,11 @@ abstract class _Community implements Community {
   List<String> get mods;
   @override
   String get id;
+
+  /// Create a copy of Community
+  /// with the given fields replaced by the non-null parameter values.
   @override
-  @JsonKey(ignore: true)
+  @JsonKey(includeFromJson: false, includeToJson: false)
   _$$CommunityImplCopyWith<_$CommunityImpl> get copyWith =>
       throw _privateConstructorUsedError;
 }

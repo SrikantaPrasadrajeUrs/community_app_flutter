@@ -84,6 +84,16 @@ class CommunityRepository {
       return left(Failure(e.toString()));
     }
   }
+
+  FutureVoid updateCommunityMods(List<String> mods,String communityName)async{
+    try{
+      return right(_community.doc(communityName).update({
+        "mods":mods
+      }));
+    }catch (e){
+      return left(Failure(e.toString()));
+    }
+  }
 }
 
 

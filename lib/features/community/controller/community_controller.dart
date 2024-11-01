@@ -47,6 +47,7 @@ class CommunityController extends StateNotifier<bool> {
     state = true;
     final uid = _ref.read(userProvider)!.uid;
     Community community = Community(
+        ownerId: uid,
         name: name,
         banner: Constants.bannerDefault,
         avatar: Constants.avatarDefault,
@@ -130,6 +131,11 @@ class CommunityController extends StateNotifier<bool> {
   void deleteCommunity(BuildContext context,{required String communityName})async{
    var response =  await _communityRepository.deleteCommunity(communityName);
    handleCommunityResponse(response, context, "Deleted Successfully");
+  }
+
+  Future<void> updateCommunityMods(List<String> mods,String communityName,BuildContext context)async{
+   var response = await _communityRepository.updateCommunityMods(mods, communityName);
+   handleCommunityResponse(response, context, "Moderators Updated!");
   }
 
 }
