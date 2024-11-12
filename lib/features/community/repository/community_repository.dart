@@ -9,7 +9,7 @@ import '../../../core/type_defs.dart';
 import '../../../model/community_model/community_model.dart';
 
 final communityRepositoryProvider = Provider((ref) =>
-    CommunityRepository(firebaseFireStore: ref.watch(fireStoreProvider))
+    CommunityRepository(firebaseFireStore: ref.read(fireStoreProvider))
 );
 
 class CommunityRepository {

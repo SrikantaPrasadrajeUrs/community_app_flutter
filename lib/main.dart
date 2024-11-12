@@ -43,7 +43,7 @@ class _MyAppState extends ConsumerState<MyApp> {
           if(data!=null) getData(ref, data);
           return MaterialApp(
             debugShowCheckedModeBanner: false,
-            theme: MyTheme.darkModeAppTheme,
+            theme: ref.watch(themeNotifierProvider),
             home: const LoginScreen(),
           );
         },

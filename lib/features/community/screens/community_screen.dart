@@ -97,9 +97,8 @@ class CommunityScreen extends ConsumerWidget {
                                           boxShadow: [
                                             BoxShadow(
                                                 offset: const Offset(0, 0),
-                                                blurRadius: 6,
-                                                spreadRadius: 7,
-                                                color: Colors.white.withOpacity(.2)
+                                                blurRadius: 10,
+                                                color: Colors.white.withOpacity(.7)
                                             )
                                           ],
                                           borderRadius: BorderRadius.circular(10),

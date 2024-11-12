@@ -36,8 +36,8 @@ class _EditCommunityScreenState extends ConsumerState<EditCommunityScreen> {
   Widget build(BuildContext context) {
       bool isSaving = ref.watch(communityControllerProvider);
     return ref.watch(getCommunityByName(widget.name)).when(
-            data: (community) =>
-                Scaffold(
+            data: (community) {
+                return Scaffold(
                   appBar: AppBar(
                     title: const Text("Edit Community"),
                     centerTitle: true,
@@ -87,7 +87,8 @@ class _EditCommunityScreenState extends ConsumerState<EditCommunityScreen> {
                       )
                     ],
                   ),
-                ),
+                );
+            },
             error: (e, st) => Scaffold(body: Center(child: Text(e.toString()))),
             loading: () => const Scaffold(body: CenterLoader()));
   }

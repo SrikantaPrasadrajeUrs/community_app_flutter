@@ -1,5 +1,4 @@
 import 'dart:io';
-
 import 'package:ecommerse_website/core/failure.dart';
 import 'package:ecommerse_website/core/providers/firebase_provider.dart';
 import 'package:ecommerse_website/core/type_defs.dart';

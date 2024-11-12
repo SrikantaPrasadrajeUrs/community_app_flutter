@@ -1,14 +1,22 @@
 import 'package:ecommerse_website/features/auth/controller/auth_controller.dart';
 import 'package:ecommerse_website/features/auth/screens/login_screen.dart';
+import 'package:ecommerse_website/features/user_profile/screens/user_profile_screen.dart';
+import 'package:ecommerse_website/themes/myThemes.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter/material.dart';
 
-class ProfileDrawer extends ConsumerWidget {
+class ProfileDrawer extends ConsumerStatefulWidget {
   const ProfileDrawer({super.key});
 
   @override
-  Widget build(BuildContext context, WidgetRef ref) {
-    var user = ref.read(userProvider);
+  ConsumerState<ProfileDrawer> createState() => _ProfileDrawerState();
+}
+
+class _ProfileDrawerState extends ConsumerState<ProfileDrawer> {
+
+  @override
+  Widget build(BuildContext context) {
+    var user = ref.watch(userProvider);
     return Drawer(
       child: SafeArea(
           top: true,
@@ -30,9 +38,12 @@ class ProfileDrawer extends ConsumerWidget {
                 endIndent: 10,
                 indent: 10,
               ),
-              const ListTile(
-                leading: Icon(Icons.person),
-                title: Text("Profile"),
+              ListTile(
+                onTap: (){
+                  Navigator.of(context).push(MaterialPageRoute(builder: (context)=>UserProfile(uid: user.uid)));
+                },
+                leading: const Icon(Icons.person),
+                title: const Text("Profile"),
               ),
               ListTile(
                 onTap: () => logout(ref, context),
@@ -42,7 +53,22 @@ class ProfileDrawer extends ConsumerWidget {
                 ),
                 title: const Text("Logout"),
               ),
-              Switch.adaptive(value: true, onChanged: (val) {})
+              Row(
+                children: [
+                  const SizedBox(width: 5,),
+                  Switch.adaptive(
+                     inactiveThumbColor: Theme.of(context).brightness == Brightness.dark ? Colors.white : Colors.black,
+                      activeThumbImage: const AssetImage('assets/images/sun.png'),
+                      inactiveThumbImage: const AssetImage('assets/images/m.png'),
+                      activeTrackColor: Theme.of(context).brightness == Brightness.dark ? Colors.white : Colors.black,
+                      inactiveTrackColor: Theme.of(context).brightness == Brightness.dark ? Colors.grey : Colors.black26,
+                      value: !(ref.watch(themeNotifierProvider.notifier).mode==ThemeMode.light),
+                      onChanged: (val) {
+                    ref.read(themeNotifierProvider.notifier).toggleTheme();
+                  }),
+                  // Text(ref.watch(themeNotifierProvider.notifier).mode==ThemeMode.light?" Light mode":" Dark mode",style: TextStyle(fontSize: 15),)
+                ],
+              ),
             ],
           )),
     );
