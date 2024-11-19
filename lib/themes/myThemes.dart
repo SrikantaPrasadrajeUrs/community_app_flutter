@@ -1,3 +1,4 @@
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:shared_preferences/shared_preferences.dart';
@@ -15,6 +16,9 @@ class MyTheme{
 
   // Themes
   static var darkModeAppTheme = ThemeData.dark().copyWith(
+    bottomAppBarTheme: const BottomAppBarTheme(
+        color: drawerColor
+    ),
     scaffoldBackgroundColor: blackColor,
     cardColor: greyColor,
     appBarTheme: const AppBarTheme(
@@ -30,13 +34,16 @@ class MyTheme{
   );
 
   static var lightModeAppTheme = ThemeData.light().copyWith(
+    bottomAppBarTheme: const BottomAppBarTheme(
+      color: drawerColor
+    ),
     scaffoldBackgroundColor: whiteColor,
     cardColor: greyColor,
     appBarTheme: const AppBarTheme(
-      backgroundColor: whiteColor,
+      backgroundColor: Colors.grey,
       elevation: 0,
       iconTheme: IconThemeData(
-        color: blackColor,
+        color: whiteColor,
       ),
     ),
     drawerTheme: const DrawerThemeData(
