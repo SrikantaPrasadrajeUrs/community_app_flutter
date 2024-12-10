@@ -1,7 +1,7 @@
 CommUnityApp (Flutter)
 
 Overview
-This project is a starting point for a Flutter application that serves as a Reddit clone, powered by Firebase. The app enables users to sign in using Google authentication, create and join communities, update or edit their profiles, and search for other groups or communities.
+This project is a starting point for a Flutter application that serves as a CommUnityApp, powered by Firebase. The app enables users to sign in using Google authentication, create and join communities, update or edit their profiles, and search for other groups or communities.
 
 Key Features:
 Authentication: Sign in using Google authentication through Firebase.
