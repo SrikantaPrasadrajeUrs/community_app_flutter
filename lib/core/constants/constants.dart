@@ -3,9 +3,9 @@ import 'package:ecommerse_website/features/post/screens/add_post_screen.dart';
 import 'package:flutter/material.dart';
 
 class Constants{
-  static const logoPath='assets/logo.png';
-  static const loginEmotePath='assets/loginEmote.png';
-  static const googlePath='assets/google.png';
+  static const logoPath='assets/images/group.png';
+  static const loginImage='assets/images/community.png';
+  static const googlePath='assets/images/google.png';
 
   static const bannerDefault =
       'https://thumbs.dreamstime.com/b/abstract-stained-pattern-rectangle-background-blue-sky-over-fiery-red-orange-color-modern-painting-art-watercolor-effe-texture-123047399.jpg';

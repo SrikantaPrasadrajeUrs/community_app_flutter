@@ -1,6 +1,6 @@
 import 'package:ecommerse_website/core/common/error.dart';
 import 'package:ecommerse_website/features/auth/controller/auth_controller.dart';
-import 'package:ecommerse_website/features/auth/screens/center_loader.dart';
+import 'package:ecommerse_website/core/common/center_loader.dart';
 import 'package:ecommerse_website/features/community/controller/community_controller.dart';
 import 'package:ecommerse_website/features/community/screens/edit_community_screen.dart';
 import 'package:ecommerse_website/features/community/screens/mod_tools_screen.dart';

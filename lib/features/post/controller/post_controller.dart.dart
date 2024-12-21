@@ -96,7 +96,7 @@ class PostController extends StateNotifier<bool> {
               commentCount: 0,
               userName: user!.name,
               uid: user.uid,
-              type: 'link',
+              type: 'image',
               createdAt: DateTime.now(),
               awards: [],
             );
@@ -124,7 +124,7 @@ class PostController extends StateNotifier<bool> {
       commentCount: 0,
       userName: user!.name,
       uid: user.uid,
-      type: 'link',
+      type: 'text',
       createdAt: DateTime.now(),
       awards: [],
     );

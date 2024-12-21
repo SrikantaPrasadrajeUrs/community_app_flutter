@@ -4,7 +4,7 @@ import 'package:dotted_border/dotted_border.dart';
 import 'package:dropdown_search/dropdown_search.dart';
 import 'package:ecommerse_website/core/common/error.dart';
 import 'package:ecommerse_website/core/enums/enums.dart';
-import 'package:ecommerse_website/features/auth/screens/center_loader.dart';
+import 'package:ecommerse_website/core/common/center_loader.dart';
 import 'package:ecommerse_website/features/community/controller/community_controller.dart';
 import 'package:ecommerse_website/model/community_model/community_model.dart';
 import 'package:ecommerse_website/themes/myThemes.dart';

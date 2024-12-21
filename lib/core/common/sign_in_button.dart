@@ -11,7 +11,6 @@ class SignInBtn extends ConsumerWidget {
  
   void signInWithGoogle(WidgetRef ref,BuildContext context){
    ref.watch(authControllerProvider.notifier).signInWithGoogle(context,isFromLogin);
-
   }
 
   @override

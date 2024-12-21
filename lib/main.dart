@@ -1,6 +1,6 @@
 import 'package:ecommerse_website/core/common/error.dart';
 import 'package:ecommerse_website/features/auth/controller/auth_controller.dart';
-import 'package:ecommerse_website/features/auth/screens/center_loader.dart';
+import 'package:ecommerse_website/core/common/center_loader.dart';
 import 'package:ecommerse_website/themes/myThemes.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_core/firebase_core.dart';

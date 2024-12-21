@@ -1,6 +1,6 @@
 import 'package:ecommerse_website/core/common/error.dart';
 import 'package:ecommerse_website/features/auth/controller/auth_controller.dart';
-import 'package:ecommerse_website/features/auth/screens/center_loader.dart';
+import 'package:ecommerse_website/core/common/center_loader.dart';
 import 'package:ecommerse_website/features/user_profile/screens/edit_user_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';

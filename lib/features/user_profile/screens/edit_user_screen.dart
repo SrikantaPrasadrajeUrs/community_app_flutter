@@ -1,7 +1,7 @@
 import 'package:dotted_border/dotted_border.dart';
 import 'package:ecommerse_website/core/utils.dart';
 import 'package:ecommerse_website/features/auth/controller/auth_controller.dart';
-import 'package:ecommerse_website/features/auth/screens/center_loader.dart';
+import 'package:ecommerse_website/core/common/center_loader.dart';
 import 'package:ecommerse_website/features/user_profile/controller/user_profile_controller.dart';
 import 'package:ecommerse_website/model/user_model.dart';
 import 'package:ecommerse_website/themes/myThemes.dart';

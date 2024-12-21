@@ -1,6 +1,6 @@
 import 'package:dotted_border/dotted_border.dart';
 import 'package:ecommerse_website/core/utils.dart';
-import 'package:ecommerse_website/features/auth/screens/center_loader.dart';
+import 'package:ecommerse_website/core/common/center_loader.dart';
 import 'package:ecommerse_website/features/community/controller/community_controller.dart';
 import 'package:ecommerse_website/themes/myThemes.dart';
 import 'package:flutter/material.dart';
