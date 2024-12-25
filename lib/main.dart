@@ -44,7 +44,7 @@ class _MyAppState extends ConsumerState<MyApp> {
           return MaterialApp(
             debugShowCheckedModeBanner: false,
             theme: ref.watch(themeNotifierProvider),
-            home: const LoginScreen(),
+            home: const LoginScreen(shouldLogin: true,),
           );
         },
         error: (error, e) => MaterialApp(home: ErrorText(message: e.toString())),

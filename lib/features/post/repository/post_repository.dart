@@ -3,6 +3,7 @@ import 'package:ecommerse_website/core/constants/firebase_constants.dart';
 import 'package:ecommerse_website/core/failure.dart';
 import 'package:ecommerse_website/core/providers/firebase_provider.dart';
 import 'package:ecommerse_website/core/type_defs.dart';
+import 'package:ecommerse_website/model/community_model/community_model.dart';
 import 'package:ecommerse_website/model/post_model.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:fpdart/fpdart.dart';
@@ -25,6 +26,13 @@ class PostRepository {
     }
   }
 
+  Stream<List<PostModel>> fetchUserCommunityPost(List<Community> communitites){
+    return _post.where('communityName',
+        whereIn: communitites.map((c)=>c.name).toList())
+        .orderBy('createdAt',descending: true)
+        .snapshots()
+        .map((event)=>event.docs.map((p)=>PostModel.fromJson(p.data() as Map<String,dynamic>)).toList());
+  }
 }
 
 

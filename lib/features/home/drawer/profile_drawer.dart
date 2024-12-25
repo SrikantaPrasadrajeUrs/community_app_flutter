@@ -77,7 +77,6 @@ class _ProfileDrawerState extends ConsumerState<ProfileDrawer> {
 
   void logout(WidgetRef ref, BuildContext context) async {
     await ref.read(authControllerProvider.notifier).logout();
-    Navigator.of(context).pushReplacement(
-        MaterialPageRoute(builder: (context) => LoginScreen()));
+    Navigator.of(context).pushReplacement(MaterialPageRoute(builder: (context) => const LoginScreen(shouldLogin: false,)));
   }
 }

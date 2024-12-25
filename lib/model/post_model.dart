@@ -4,6 +4,7 @@ class PostModel{
   final String title;
   final String? description;
   final String? imageUrl;
+  final String communityName;
   final String communityProfilePic;
   final int upVotes;
   final int downVotes;
@@ -20,6 +21,7 @@ class PostModel{
     this.imageUrl,
     required this.title,
     this.description,
+    required this.communityName,
     required this.communityProfilePic,
     required this.upVotes,
     required this.downVotes,
@@ -34,6 +36,7 @@ class PostModel{
   factory PostModel.fromJson(Map<String, dynamic> json) {
     return PostModel(
       id: json['id'],
+      communityName: json['communityName'],
       link: json['link'],
       imageUrl: json['imageUrl'],
       title: json['title'],
@@ -63,6 +66,7 @@ class PostModel{
       'commentCount': commentCount,
       'userName': userName,
       'uid': uid,
+      'communityName':communityName,
       'type': type,
       'createdAt': createdAt.toIso8601String(),
       'awards': awards,
@@ -75,6 +79,7 @@ class PostModel{
     String? title,
     String? imageUrl,
     String? description,
+    String? communityName,
     String? communityProfilePic,
     int? upVotes,
     int? downVotes,
@@ -87,6 +92,7 @@ class PostModel{
   }) {
     return PostModel(
       id: id ?? this.id,
+      communityName: this.communityName,
       link: link ?? this.link,
       title: title ?? this.title,
       imageUrl: imageUrl??this.imageUrl,

@@ -16,6 +16,10 @@ final postControllerProvider = StateNotifierProvider<PostController, bool>(
         ref: ref,
         storageRepo: ref.read(storageRepoProvider)));
 
+final userPostProvider = StreamProvider.family((ref,List<Community> communities){
+  return ref.read(postControllerProvider.notifier).fetchUserPostBuCommunity(communities);
+});
+
 class PostController extends StateNotifier<bool> {
   final PostRepository _postRepository;
   final StorageRepo _storageRepo;
@@ -62,6 +66,7 @@ class PostController extends StateNotifier<bool> {
       userName: user!.name,
       uid: user.uid,
       type: 'link',
+      communityName: community.name,
       createdAt: DateTime.now(),
       link: link,
       awards: [],
@@ -83,7 +88,7 @@ class PostController extends StateNotifier<bool> {
       name: const Uuid().v1(),
       file: file,
     );
-    final imageUrlResult = imageUrl.fold(
+    imageUrl.fold(
           (error) => showSnackBar(context, error.message),
           (url){
             final post = PostModel(
@@ -96,6 +101,7 @@ class PostController extends StateNotifier<bool> {
               commentCount: 0,
               userName: user!.name,
               uid: user.uid,
+              communityName: community.name,
               type: 'image',
               createdAt: DateTime.now(),
               awards: [],
@@ -123,6 +129,7 @@ class PostController extends StateNotifier<bool> {
       downVotes: 0,
       commentCount: 0,
       userName: user!.name,
+      communityName: community.name,
       uid: user.uid,
       type: 'text',
       createdAt: DateTime.now(),
@@ -130,5 +137,9 @@ class PostController extends StateNotifier<bool> {
     );
     _addPost(context: context, community: community, post: post);
     state = false;
+  }
+
+  Stream<List<PostModel>> fetchUserPostBuCommunity(List<Community> communities){
+    return _postRepository.fetchUserCommunityPost(communities);
   }
 }

@@ -1,3 +1,5 @@
+import 'dart:developer';
+
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:ecommerse_website/core/constants/constants.dart';
 import 'package:ecommerse_website/core/constants/firebase_constants.dart';
@@ -71,8 +73,8 @@ class AuthRepository {
         userModel = await getUserData(userCredential.user!.uid).first;
       }
       return right(userModel);
-    } on Exception catch (e) {
-      print(e);
+    }catch (e) {
+      log("Error while sign-in:",error: e);
       return left(Failure(e.toString()));
     }
   }

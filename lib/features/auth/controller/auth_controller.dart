@@ -35,16 +35,16 @@ class AuthController extends StateNotifier<bool> {
   // here user represents a user account a part of firebse auth
   Stream<User?> get authStateChange => _authRepository.authStateChange;
 
-  void signInWithGoogle(BuildContext context, bool isFromLogin) async {
+  Future<void> signInWithGoogle(BuildContext context, bool isFromLogin) async {
     state = false;
     final userModelOrFailure = await _authRepository.signInWithGoogle(isFromLogin);
     userModelOrFailure.fold((failure) {
       state = false;
-      showSnackBar(context, failure.message);
+      showSnackBar(context, "Oops! Something went wrong while logging in. Please try again.",);
     }, (userModel) {
       state = true;
       ref.read(userProvider.notifier).update((state) => userModel);
-      showSnackBar(context, "${userModel.name} logged in");
+      showSnackBar(context, "Welcome, ${userModel.name}! You’ve successfully logged in.");
      Navigator.push(context,MaterialPageRoute(builder: (context)=> const HomePage()));
     });
     // l => Failure R=> Model

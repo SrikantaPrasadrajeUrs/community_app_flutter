@@ -1,3 +1,4 @@
+import 'package:ecommerse_website/core/common/center_loader.dart';
 import 'package:ecommerse_website/core/common/sign_in_button.dart';
 import 'package:ecommerse_website/features/auth/controller/auth_controller.dart';
 import 'package:ecommerse_website/themes/my_text_themes.dart';
@@ -7,7 +8,8 @@ import '../../../core/constants/constants.dart';
 
 
 class LoginScreen extends ConsumerStatefulWidget {
-  const LoginScreen({super.key});
+  final bool shouldLogin;
+  const LoginScreen({super.key, required this.shouldLogin});
 
   @override
   ConsumerState<LoginScreen> createState() => _LoginScreenState();
@@ -15,12 +17,29 @@ class LoginScreen extends ConsumerStatefulWidget {
 
 class _LoginScreenState extends ConsumerState<LoginScreen> {
 
+  bool isLoading = false;
+
   @override
   void initState() {
-    WidgetsBinding.instance.addPostFrameCallback((_){
-      ref.watch(authControllerProvider.notifier).signInWithGoogle(context, false);
+    WidgetsBinding.instance.addPostFrameCallback((_)async{
+    if(widget.shouldLogin) _signIn();
     });
     super.initState();
+  }
+
+  Future<void> _signIn() async {
+    setState(() {
+      isLoading = true;
+    });
+    try {
+      await ref
+          .watch(authControllerProvider.notifier)
+          .signInWithGoogle(context, false);
+    } finally {
+      setState(() {
+        isLoading = false;
+      });
+    }
   }
 
   @override
@@ -32,14 +51,19 @@ class _LoginScreenState extends ConsumerState<LoginScreen> {
         leading: null,
         title: Image.asset(Constants.logoPath,height: 60,color: Colors.green,)
       ),
-      body: ListView(
+      body:  Stack(
         children: [
-          reusableSizedBox(context, .02, true, false),
-        const Center(child: Text("Dive Into Anything",style: MyTextThemes.mediumWhite,)),
-          Image.asset(Constants.loginImage,height: 300,),
-          SizedBox(
-              width: size.width-32,
-              child: const SignInBtn()),
+          ListView(
+            children: [
+              reusableSizedBox(context, .02, true, false),
+              Center(child: Text("Find Your Tribe, Share Your Vibe",style: MyTextThemes.mediumWhite.copyWith(fontSize: 17),)),
+              Image.asset(Constants.loginImage,height: 300,),
+              SizedBox(
+                  width: size.width-32,
+                  child: const SignInBtn()),
+            ],
+          ),
+          if(isLoading) const CenterLoader(bgColor: Colors.black45,)
         ],
       ),
     );
